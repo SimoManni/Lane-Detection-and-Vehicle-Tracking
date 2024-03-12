@@ -1,42 +1,47 @@
-# Advanced Lane Detection
+# Lane Detection and Vehicle Tracking
+This project implements a lane detection and vehicle tracking algorithm using computer vision and machine learning techniques. The lane detection and vehicle tracking part will be analyzed separately. 
 
-This project implements a lane detection pipeline using computer vision techniques. The pipeline processes video frames to identify lane markings on the road, estimate lane curvature, and determine the vehicle's position relative to the lane center.
+## Advanced Lane Detection
 
-## Pipeline Components
+### Overview
+The lane detection pipeline processes video frames to identify lane markings on the road, estimate lane curvature, and determine the vehicle's position relative to the lane center.
 
-### 1. Camera Calibration
+<p align="center">
+  <img src="https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/470b0d85-5d8a-48ec-bfed-fa88d99a1029" alt="Lane Video" width="600">
+</p>
+
+
+### Pipeline Components
+
+#### 1. Camera Calibration
 
 Camera calibration is a critical step in correcting the distortion caused by the camera lens. In this step, a set of chessboard images with known square sizes is used to compute the camera matrix (K) and distortion coefficients. These parameters are then applied to undistort subsequent frames, ensuring accurate lane detection.
 
-### 2. Thresholding
+#### 2. Thresholding
 
 Thresholding is performed to isolate lane markings by applying color and gradient thresholds to the undistorted frame. By enhancing specific color channels and detecting edges using gradient-based methods like Sobel operators, the pipeline effectively highlights lane features while suppressing noise.
 
-### 3. Bird's Eye View Transformation
+#### 3. Bird's Eye View Transformation
 
 The bird's eye view transformation is essential for obtaining a top-down perspective of the road, which simplifies lane detection. This transformation involves defining source and destination points in the original and transformed images, respectively, and applying a perspective transform using OpenCV functions like `cv2.getPerspectiveTransform()`.
 
-### 4. Lane Detection
+#### 4. Lane Detection
 
 Lane detection is achieved through two main methods:
 - **Histogram Based Search**: This method is used initially or when the lanes are lost due to occlusions or sudden changes. It involves computing a histogram of pixel intensities in the bottom half of the bird's eye view image and identifying peak locations as potential lane positions.
 - **Search Based on Previously Identified Lanes**: Once lanes are detected, a more efficient search is performed around the previously identified lanes using techniques like sliding windows or region of interest (ROI) masking. This approach reduces computational overhead and improves real-time performance.
 
-### 5. Curvature Calculation
+#### 5. Curvature Calculation
 
 Curvature calculation estimates the curvature of the lane lines in meters using the detected lane pixels' coordinates. This is done by fitting a second-order polynomial to the lane pixels and applying the curvature formula. Additionally, the offset of the vehicle from the lane center is computed by comparing the midpoint of the detected lanes with the image center.
 
-### 6. Lane Visualization
+#### 6. Lane Visualization
 
 The final step involves visualizing the detected lanes on the original undistorted frame. This includes drawing the lane boundaries, filling the lane area, and overlaying curvature and vehicle position information. Visualization aids in validating the pipeline's performance and provides valuable feedback for debugging and parameter tuning.
 
-## Results
+### Results
 
 The lane detection pipeline demonstrates robust performance in identifying lane markings, estimating lane curvature, and determining the vehicle's position relative to the lane center. Through thorough testing on various road conditions and lighting scenarios, the pipeline consistently produces accurate lane boundaries and curvature measurements.
-
-<p align="center">
-  <img src="https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/470b0d85-5d8a-48ec-bfed-fa88d99a1029" alt="Lane Video" width="600">
-</p>
 
 
 ## Improvements
@@ -52,10 +57,10 @@ While the current pipeline performs well under normal conditions, there are oppo
 # Vehicle Detection and Tracking Project using SVC
 
 ## Overview
-This project aims to develop a robust system for detecting and tracking vehicles in video footage captured by an onboard camera. The detection and tracking of vehicles are essential for various applications, including advanced driver assistance systems (ADAS) and autonomous vehicles. The project utilizes a combination of computer vision techniques and machine learning algorithms to accurately identify and track vehicles in real-time.
+This part of the project aims to develop a robust system for detecting and tracking vehicles in video footage captured by an onboard camera. The detection and tracking of vehicles are essential for various applications, including advanced driver assistance systems (ADAS) and autonomous vehicles. The project utilizes a combination of computer vision techniques and machine learning algorithms to accurately identify and track vehicles in real-time.
 
 <div align="center">
-  <img src="https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/ae387b41-e468-438c-ad66-11ea3f80f3af" alt="Vehicle Detection Tracking GIF" width="600"/>
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/75cdc622-b0d8-4160-8a19-616dcfc6cd89" alt="Vehicle Detection Tracking GIF" width="600"/>
 </div>
 
 ## Building the SVC Classifier 
@@ -68,17 +73,17 @@ A diverse dataset containing images of vehicles and non-vehicles is collected fr
 Features are extracted from the preprocessed images to represent their unique characteristics. The following features are extracted:
 - **Color Histogram**: Histograms of color channels are computed to capture color information.
 <p align="center">
-  <img src="https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/77fa7327-536e-46bb-9be8-fef61287d7d0" alt="image" width="600"/>
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/78378712-016b-41c7-abac-39d8d87e8aa1" alt="image" width="600"/>
 </p>
 
 - **Spatial Binning**: Color channels are resized and flattened to create spatially binned feature vectors.
 <p align="center">
-  <img src=https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/36bd1ccc-65a8-453d-b45c-c45010ea49ff" alt="image" width="600"/>
+  <img src=https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/6b35af49-88dd-41cd-8268-14c80b7417d8" alt="image" width="600"/>
 </p>
 
 - **Histogram of Oriented Gradients (HOG)**: HOG features are extracted to capture shape and texture information.
 <p align="center">
-  <img src=https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/de0c5458-8acd-461b-a5c4-a10ce7e66c09" alt="image" width="600"/>
+  <img src=https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/bcc54f1e-3bf2-44a3-90a1-fcd496a65c74" alt="image" width="600"/>
 </p>
 
 ### 3. Training the Classifier
@@ -97,7 +102,7 @@ This class implements several key functions for detecting and tracking vehicles 
 The `thresholding` method performs gradient and color thresholding on an input image to identify potential car points. It first converts the image to HLS color space, extracts the saturation channel, and applies the Sobel operator in the x-direction to detect gradients. Then, it applies thresholds to both the gradient and saturation channel to create binary images. Finally, it combines these binary images and masks out regions in the upper portion of the image, where vehicles are less likely to appear.
 
 <p align="center">
-  <img src=https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/09b8e727-d812-48d6-8da8-beb965066f07" alt="image" width="600"/>
+  <img src=https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/bd2a099c-eeb7-4176-b6e9-405017b5d02e" alt="image" width="600"/>
 </p>
 
 - #### Sliding Window Method
@@ -105,7 +110,7 @@ The `thresholding` method performs gradient and color thresholding on an input i
 The slide_window function is crucial for systematically scanning an image for potential vehicle locations. It resizes the image based on specified scales for multi-scale detection and then generates sliding windows. For each window, the function calculates centroids by determining the midpoint coordinates, representing potential vehicle locations. This iterative process covers the image space thoroughly, providing a systematic approach to identify potential vehicle regions.
 
 <p align="center">
-  <img src=https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/b90ae0ea-a5d2-46c3-8e79-25824c22ec66" alt="image" width="600"/>
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/bff8b593-20b8-4da0-bf21-472a69243fda alt="image" width="600"/>
 </p>
 
 - #### Heatmap Generation Method
@@ -113,7 +118,7 @@ The slide_window function is crucial for systematically scanning an image for po
 The `heatmap` method generates a heatmap by processing a set of sliding windows across the image. Each window corresponds to a potential car region, and the method evaluates these regions using a trained classifier to determine the likelihood of containing a vehicle. By accumulating heat from overlapping windows, the method identifies high-confidence regions where vehicles are present.
 
 <p align="center">
-  <img src=https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/bc56fdae-3ce1-454b-afc4-62080ebee81c" alt="image" width="600"/>
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/226963db-9da7-4939-8876-be890bf76551 alt="image" width="600"/>
 </p>
 
 - #### Box Drawing Method
@@ -121,7 +126,7 @@ The `heatmap` method generates a heatmap by processing a set of sliding windows 
 The `draw_boxes` method utilizes the heatmap generated by the `heatmap` method to draw bounding boxes around detected vehicles. It employs a label function to identify connected regions with high heat values in the heatmap, indicating potential vehicle locations. These regions are then enclosed with bounding boxes, and the method ensures robust vehicle identification by rejecting outliers and tracking detected vehicles over time. By considering the history of detected vehicles and applying thresholds to the heatmap, the algorithm effectively distinguishes between actual vehicles and noise or irrelevant objects in the scene.
 
 <p align="center">
-  <img src=https://github.com/SimoManni/Self-Driving-Car-Projects/assets/151052936/4eac4098-32cb-4554-869b-bed134181e14" alt="image" width="600"/>
+  <img src=https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/274873e3-0a2f-4fee-a902-b8c24fbd241f" alt="image" width="600"/>
 </p>
 
 In summary, these methods leverage gradient and color thresholding along with heatmap generation and box drawing techniques to robustly identify and track vehicles in video frames, even in challenging scenarios with varying lighting conditions and occlusions.
