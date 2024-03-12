@@ -1,5 +1,10 @@
 # Lane Detection and Vehicle Tracking
-This project implements a lane detection and vehicle tracking algorithm using computer vision and machine learning techniques. The lane detection and vehicle tracking part will be analyzed separately. 
+This project implements a lane detection and vehicle tracking algorithm using computer vision and machine learning techniques. The lane detection and vehicle tracking part will be analyzed separately. The output of the pipeline can be seen in the video below.
+
+<p align="center">
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/a4d2543b-4f6a-4883-bf74-a47b5f35084f" alt="Lane Video" width="600">
+</p>
+
 
 ## Advanced Lane Detection
 
@@ -17,19 +22,41 @@ The lane detection pipeline processes video frames to identify lane markings on 
 
 Camera calibration is a critical step in correcting the distortion caused by the camera lens. In this step, a set of chessboard images with known square sizes is used to compute the camera matrix (K) and distortion coefficients. These parameters are then applied to undistort subsequent frames, ensuring accurate lane detection.
 
+<p align="center">
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/8cfaabdf-ba40-40c8-a920-39272b900b68" alt="Lane Video" width="600">
+</p>
+
 #### 2. Thresholding
 
 Thresholding is performed to isolate lane markings by applying color and gradient thresholds to the undistorted frame. By enhancing specific color channels and detecting edges using gradient-based methods like Sobel operators, the pipeline effectively highlights lane features while suppressing noise.
+
+<p align="center">
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/02ae8dc9-7f95-4028-b49d-0df2f3d1e466" alt="Lane Video" width="600">
+</p>
 
 #### 3. Bird's Eye View Transformation
 
 The bird's eye view transformation is essential for obtaining a top-down perspective of the road, which simplifies lane detection. This transformation involves defining source and destination points in the original and transformed images, respectively, and applying a perspective transform using OpenCV functions like `cv2.getPerspectiveTransform()`.
 
+<p align="center">
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/79721761-30bb-4732-a5e9-7a29aa51473d" alt="Lane Video" width="600">
+</p>
+
+
 #### 4. Lane Detection
 
 Lane detection is achieved through two main methods:
 - **Histogram Based Search**: This method is used initially or when the lanes are lost due to occlusions or sudden changes. It involves computing a histogram of pixel intensities in the bottom half of the bird's eye view image and identifying peak locations as potential lane positions.
+
+<p align="center">
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/5fbb8ec4-5236-4f73-88e0-5a402a3854bc" alt="Lane Video" width="400">
+</p>
+
 - **Search Based on Previously Identified Lanes**: Once lanes are detected, a more efficient search is performed around the previously identified lanes using techniques like sliding windows or region of interest (ROI) masking. This approach reduces computational overhead and improves real-time performance.
+
+<p align="center">
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/0e44f32d-433c-4194-9427-ded9d92647d5" alt="Lane Video" width="400">
+</p>
 
 #### 5. Curvature Calculation
 
