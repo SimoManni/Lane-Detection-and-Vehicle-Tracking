@@ -60,7 +60,7 @@ While the current pipeline performs well under normal conditions, there are oppo
 This part of the project aims to develop a robust system for detecting and tracking vehicles in video footage captured by an onboard camera. The detection and tracking of vehicles are essential for various applications, including advanced driver assistance systems (ADAS) and autonomous vehicles. The project utilizes a combination of computer vision techniques and machine learning algorithms to accurately identify and track vehicles in real-time.
 
 <div align="center">
-  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/75cdc622-b0d8-4160-8a19-616dcfc6cd89" alt="Vehicle Detection Tracking GIF" width="600"/>
+  <img src="https://github.com/SimoManni/Lane-Detection-and-Vehicle-Tracking/assets/151052936/80700b45-fbea-45d0-b6c0-c71046960a0c" alt="Vehicle Detection Tracking GIF" width="600"/>
 </div>
 
 ## Building the SVC Classifier 
